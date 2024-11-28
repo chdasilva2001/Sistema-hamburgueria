@@ -1,0 +1,76 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #1e1b1be4;
+}
+.Topo{
+    padding: 16px;
+    width: 100vw;
+    height: 16vh;
+}
+
+
+.Nav-bar{
+    display: flex;
+    justify-content: space-around;
+    background-color: #1e1b1b;
+    height: 07vh;
+    width: 100vw;
+    padding:16px;
+}
+
+.Nav-links,li{
+    list-style:none;
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+li,a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.produto{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #1e1b1b;
+    height: 20vh;
+    width: 30vw;
+    border-radius: 16px;
+}
+
+.BntAdd{
+    background-color: yellow;
+    height: 30px;
+    width: 50px;
+    border-radius: 8px;
+
+}
+
+.Secoes{
+    display: grid;
+    column-gap: 50px;
+    row-gap: 100px;
+    grid-template-columns: auto auto;
+    background-color: #1e1b1bb3;
+    padding: 50px 150px 50px 150px;
+}
+
+.Img-Produto{
+    padding: 8px;
+    border-radius: 16px;
+    width: 128px;
+    height: 100px;
+}
+
+.logo{
+    border-radius: 8px;
+    width: 100px;
+    height:100px;
+}
