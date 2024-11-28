@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'css/Style.css' %}" type="text/css">
+</head>
+<body>
+    <header class="Topo" style="background-image: url({% static 'imagens/fundo.webp' %});">
+        <img class="logo" src="{% static 'imagens/logoigara01.webp' %}" alt=""  >
+    </header>
+    <nav class="Nav-bar" >
+        <ul class="Nav-links">
+
+            <li><a href=""><h1>IGARA LANCHES</h1></a></li>
+        </ul>
+        <ul class="Nav-links">
+            <li> <a href="">HAMBÚRGUERES</a></li>
+            <li> <a href="">BATATAS</a></li>
+            <li> <a href="">BEBIDAS</a></li>
+            <li><a href="">PIZZAS</a></li>
+            <li><a href="">ARTESENAIS</a></li>
+            <li><a href="">COMBOS</a></li>
+        </ul>
+        <img src="{% static 'imagens/do-utilizador.png' %}" alt="" width="24 px">
+    </nav>
+
+    <main class="Secoes">
+        {% block Conteudo  %}
+
+        {% endblock  %}
+    </main>
+
+    <footer></footer>
+</body>
+<script src="Script.js"></script>
+</html>
