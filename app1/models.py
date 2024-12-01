@@ -1,14 +1,5 @@
 from django.db import models
 
-# Modelo para Cliente
-class Cliente(models.Model):
-    nome = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=15)
-    endereco = models.CharField(max_length=255)  # Endereço do cliente, pode ser usado também para a entrega
-
-    def __str__(self):
-        return self.nome
-
 
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
@@ -20,12 +11,34 @@ class Produto(models.Model):
 
 
 class Pedido(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    produtos = models.ManyToManyField(Produto)  # Relacionamento com o Produto, um pedido pode ter vários produtos
+    nome_cliente = models.CharField(max_length=100)
+    telefone_cliente = models.CharField(max_length=15)
+    endereco_cliente = models.CharField(max_length=255)
     data_pedido = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=50,
+        choices=[
+            ('Recebido', 'Recebido'),
+            ('Em preparo', 'Em preparo'),
+            ('Em entrega', 'Em entrega'),
+            ('Concluído', 'Concluído'),
+        ],
+        default='Recebido'
+    )
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.cliente.nome}"
+        return f"Pedido {self.id} - {self.nome_cliente}"
+    
+
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey("Pedido", on_delete=models.CASCADE)  # Relaciona com Pedido
+    produto = models.ForeignKey("Produto", on_delete=models.CASCADE)  # Relaciona com Produto
+    quantidade = models.PositiveIntegerField(default=1)  # Quantidade do produto no pedido
+    observacao = models.TextField(blank=True, null=True)  # Observações opcionais para o item
+
+    def __str__(self):
+        return f"{self.quantidade}x {self.produto.nome} (Pedido {self.pedido.id})"
 
 
 # Modelo para Entrega
@@ -45,7 +58,6 @@ class Entrega(models.Model):
 class Avaliacao(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)  # Cada avaliação está ligada a um pedido
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)  # Cada avaliação é para um produto específico
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)  # Quem fez a avaliação
     nota = models.PositiveIntegerField(choices=[(1, '1 estrela'), (2, '2 estrelas'), (3, '3 estrelas'),
                                                 (4, '4 estrelas'), (5, '5 estrelas')])
     comentario = models.TextField(blank=True, null=True)  # Comentário opcional

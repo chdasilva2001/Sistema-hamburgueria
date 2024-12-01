@@ -76,40 +76,36 @@ li,a{
 }
 
 
-.modal{
-    display: none; 
-    overflow: auto;
-    background-color: #1f1e1e8a;;
-}
-.modalBtn {
-    height: 5vh;
-    min-height: 30px;
-    width: 5vh;
-    min-width: 130px;
-    border-radius: 8px;
-    background-color: #1F1E1E;
+.pagination-container {
+    text-align: center; 
+    margin-top: 20px;   
 }
 
-.ModalContent{
+.pagination {
+    display: inline-block;
+}
+
+
+.pagination a, .pagination span {
+    margin: 0 5px;      
+    padding: 5px 10px;  
+    text-decoration: none;
+    border: 1px solid #ddd; 
+    border-radius: 5px;     
+}
+
+.pagination .current {
+    font-weight: bold; 
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  
+}
+
+.pagination-container {
     position: absolute;
-    height: 80vh;
-    width: 40vw;
-    top: 30%;
-    left: 30%;
-    border-radius: 8px;
-    background-color: #1e1b1b; 
-}
-
-.Nav-Pedido{
-    display: flex;
-    justify-content: space-between;
-    background-color: #1e1b1b;
-    height: 10vh;
-    width: 100vw;
-    padding: 16px;
-}
-
-.logoVoltar{
-    height: 24px;
-    width: 24px
+    bottom: 20px;    
+    width: 100%;
+    left: 0;
+    right: 0;
 }
