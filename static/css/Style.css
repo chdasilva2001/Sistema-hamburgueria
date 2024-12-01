@@ -31,7 +31,7 @@ body{
 
 li,a{
     text-decoration: none;
-    color: aliceblue;
+    color: rgb(255, 255, 255);
 }
 
 .produto{
@@ -46,7 +46,7 @@ li,a{
 }
 
 .BntAdd{
-    background-color: yellow;
+    background-color:rgb(255, 251, 0);
     height: 30px;
     width: 50px;
     border-radius: 8px;
@@ -73,4 +73,43 @@ li,a{
     border-radius: 8px;
     width: 100px;
     height:100px;
+}
+
+
+.modal{
+    display: none; 
+    overflow: auto;
+    background-color: #1f1e1e8a;;
+}
+.modalBtn {
+    height: 5vh;
+    min-height: 30px;
+    width: 5vh;
+    min-width: 130px;
+    border-radius: 8px;
+    background-color: #1F1E1E;
+}
+
+.ModalContent{
+    position: absolute;
+    height: 80vh;
+    width: 40vw;
+    top: 30%;
+    left: 30%;
+    border-radius: 8px;
+    background-color: #1e1b1b; 
+}
+
+.Nav-Pedido{
+    display: flex;
+    justify-content: space-between;
+    background-color: #1e1b1b;
+    height: 10vh;
+    width: 100vw;
+    padding: 16px;
+}
+
+.logoVoltar{
+    height: 24px;
+    width: 24px
 }
