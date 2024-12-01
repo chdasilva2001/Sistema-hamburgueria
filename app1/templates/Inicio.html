@@ -1,39 +1,39 @@
 {% extends 'Base.html' %}
 {% load static %}
-{% block Conteudo  %}
+{% block Conteudo %}
     
-    <div class="produto">
-        <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="X-bacon">
-        <ul class="nav_links">
-            <li><a href="">X-TUDO</a></li>
-            <li><a href="">20 R$</a></li>
-        </ul>
-        <a href=""><button class="BntAdd">ADD</button></a>
+    <div class="produtos_container">
+        {% for produto in page_obj %}
+            <div class="produto">
+                <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
+                <ul class="nav_links">
+                    <li><a href="">{{ produto.nome }}</a></li>
+                    <li><a href="">{{ produto.preco }}</a></li>
+                </ul>
+                <a href=""><button class="BntAdd">ADD</button></a>
+            </div>
+        {% endfor %}
     </div>
-    <div class="produto">
-        <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="X-bacon">
-        <ul class="nav_links">
-            <li><a href="">X-TUDO</a></li>
-            <li><a href="">20 R$</a></li>
-        </ul>
-        <a href=""><button class="BntAdd">ADD</button></a>
-    </div>
-    <div class="produto">
-        <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="X-bacon">
-        <ul class="nav_links">
-            <li><a href="">X-TUDO</a></li>
-            <li><a href="">20 R$</a></li>
-        </ul>
-        <a href=""><button class="BntAdd">ADD</button></a>
-    </div>
-    <div class="produto">
-        <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="X-bacon">
-        <ul class="nav_links">
-            <li><a href="">X-TUDO</a></li>
-            <li><a href="">20 R$</a></li>
-        </ul>
-        <a href=""><button class="BntAdd">ADD</button></a>
-    </div>  
 
-{% endblock  %}
+    <!-- Paginação abaixo -->
+    <div class="pagination-container">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primeira</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
 
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+{% endblock %}

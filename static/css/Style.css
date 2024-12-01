@@ -74,3 +74,38 @@ li,a{
     width: 100px;
     height:100px;
 }
+
+
+.pagination-container {
+    text-align: center; 
+    margin-top: 20px;   
+}
+
+.pagination {
+    display: inline-block;
+}
+
+
+.pagination a, .pagination span {
+    margin: 0 5px;      
+    padding: 5px 10px;  
+    text-decoration: none;
+    border: 1px solid #ddd; 
+    border-radius: 5px;     
+}
+
+.pagination .current {
+    font-weight: bold; 
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;  
+}
+
+.pagination-container {
+    position: absolute;
+    bottom: 20px;    
+    width: 100%;
+    left: 0;
+    right: 0;
+}
