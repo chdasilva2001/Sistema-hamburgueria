@@ -13,4 +13,5 @@ def Inicio(request):
 
     return render(request, 'Inicio.html', {'page_obj': page_obj} )
 
-
+def Pedido(request):
+    return render(request, "Pedido.html")

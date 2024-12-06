@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="{% static 'css/Style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/Style.css'%}">
 </head>
 <body>
     <header class="Topo" style="background-image: url({% static 'imagens/fundo.webp' %});">
-        <img class="logo" src="{% static 'imagens/logoigara01.webp' %}" alt=""  >
+        <img class="logo" src="{% static 'imagens/logoigara01.webp' %}" alt="">
     </header>
     <nav class="Nav-bar" >
         <ul class="Nav-links">
@@ -24,8 +25,15 @@
             <li><a href="">ARTESENAIS</a></li>
             <li><a href="">COMBOS</a></li>
         </ul>
-        <img src="{% static 'imagens/do-utilizador.png' %}" alt="" width="24 px">
+        <button class="modalBtn"><img src="{% static 'imagens/mais-informacoes.png' %}" alt="" width="24 px"></button>
     </nav>
+
+    <section class="modal">
+        <div class="ModalContent">
+            <h1>teste</h1>
+        </div>
+    </section>
+   
 
     <main class="Secoes">
         {% block Conteudo  %}
@@ -35,5 +43,5 @@
 
     <footer></footer>
 </body>
-<script src="Script.js"></script>
+<script src="{%static 'js/main.js'%}"></script>
 </html>
