@@ -46,7 +46,7 @@ li,a{
 }
 
 .BntAdd{
-    background-color:rgb(255, 251, 0);
+    background-color:rgb(242, 255, 0);
     height: 30px;
     width: 50px;
     border-radius: 8px;
@@ -77,12 +77,15 @@ li,a{
 
 
 .pagination-container {
+    display: none;
     text-align: center; 
     margin-top: 20px;   
+    
 }
 
 .pagination {
-    display: inline-block;
+    display: flex;
+    justify-content: space-around;
 }
 
 
@@ -108,4 +111,44 @@ li,a{
     width: 100%;
     left: 0;
     right: 0;
+}
+
+.produtos_container{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 60px;
+    padding: 10px;
+}
+
+.logoVoltar{
+    width:32px;
+
+}
+
+.Nav-Pedido{
+    align-items: center;
+    padding: 16px;
+    height: 10vh;
+    width:100vw;
+    display: flex;
+    justify-content: space-between;
+    background-color: #1e1b1b;
+
+}
+
+.Nav-footer{
+    display: flex;
+    justify-content: space-around;
+}
+
+.BntFooter{
+    background-color:rgb(242, 255, 0);
+    height: 64px;
+    width: 256px;
+    border-radius: 8px;
+}
+
+.SecoesPedido{
+    height: 80vh;
+    width: 100vw;
 }
