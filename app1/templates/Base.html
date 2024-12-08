@@ -25,15 +25,25 @@
             <li><a href="">ARTESENAIS</a></li>
             <li><a href="">COMBOS</a></li>
         </ul>
-        <button class="modalBtn"><img src="{% static 'imagens/mais-informacoes.png' %}" alt="" width="24 px"></button>
+         <a class="modalBtn"><img src="{% static 'imagens/info.png' %}" alt="" width="24 px"></a>
     </nav>
 
     <section class="modal">
         <div class="ModalContent">
-            <h1>teste</h1>
+            <h1>INFORMAÇÕES:</h1>
+            
+            <div class="servicosInfo"><h1>IGARA LANCHES</h1>  <img src="{% static 'imagens/logoigara01.webp' %}" alt="" width="100px"></div>
+            <div class="servicosShare"><img src="{% static 'imagens/Instagram.png' %}" alt=""><img src="{% static 'imagens/WhatsApp.png' %}" alt=""><img src="{% static 'imagens/Share.png' %}" alt=""></div>
+                 
+            <div class="ServMom">
+                <div class="servicos"><img src="{% static 'imagens/Food Service.png' %}" alt=""><p>NO LOCAL</p><img src="{% static 'imagens/Done.png' %}" alt=""></div>
+                <div class="servicos"><img src="{% static 'imagens/Small Business.png' %}" alt=""><p>RETIRAR NA LOJA</p><img src="{% static 'imagens/Done.png' %}" alt=""></div>
+                <div class="servicos"><img src="{% static 'imagens/Delivery Scooter.png' %}" alt=""><p>DELIVERY</p><img src="{% static 'imagens/Done.png' %}" alt=""></div> 
+            </div>
+          
         </div>
+        
     </section>
-   
 
     <main class="Secoes">
         {% block Conteudo  %}
@@ -41,7 +51,14 @@
         {% endblock  %}
     </main>
 
-    <footer></footer>
+    <dialog class="Nav-Footer">
+        <ul class="Nav-links">
+            <li><h2>1-Produto(s)</h1></li>
+            <li> <h2>Valor: 50R$</h2></li>
+        </ul>
+
+        <button class="BntProduto"><p>MEU PEDIDO</p></button>
+    </dialog>
 </body>
 <script src="{%static 'js/main.js'%}"></script>
 </html>
