@@ -201,7 +201,14 @@ li,a,h1,p{
     justify-content: space-around;
 }
 
-.BntFooter{
+ .BntFooter{
+    background-color:rgb(242, 255, 0);
+    height: 64px;
+    width: 256px;
+    border-radius: 8px;
+}
+
+#BntFooter{
     background-color:rgb(242, 255, 0);
     height: 64px;
     width: 256px;
@@ -212,8 +219,32 @@ li,a,h1,p{
 }
 
 .SecoesPedido{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    padding: 16px;
+    gap: 20px;
     height: 80vh;
     width: 100vw;
+}
+
+.produtoPedido{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1b1b;
+    height: 20vh;
+    width: 70vw;
+    border-radius: 16px;
+}
+
+.operacoes{
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    width:200px;
+    height: 100px;
 }
 
 .Nav-Footer{
@@ -231,5 +262,17 @@ li,a,h1,p{
     height: 50px;
     width: 256px;
     border-radius: 8px;
+}
+
+
+
+
+.modalPedido{
+    position: absolute;
+    height: 500px;
+    width: 700px;
+    top: 20%;
+    left: 25%;
+    background-color: lawngreen;
 }
 

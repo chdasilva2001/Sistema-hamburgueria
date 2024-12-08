@@ -1,6 +1,16 @@
+const ModalPedido = document.querySelector('.modalPedido')
+const BtnModalPedido = document.querySelector('.BntFooter')
+
+function Modalpedido (){
+  ModalPedido.showModal()
+
+}
+BtnModalPedido.addEventListener('click',Modalpedido)
 
 
-
+  
+  
+  
   const switchModal = () => {
       const modal = document.querySelector('.modal')
       const actualStyle = modal.style.display
@@ -31,3 +41,4 @@ function Produto (){
 }
 Footer.addEventListener('click',Produto)
   
+

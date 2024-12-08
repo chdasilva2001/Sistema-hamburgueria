@@ -19,13 +19,31 @@
             <li>VALOR TOTAL:</li> 
         </ul>
     </header>
-    <section class="SecoesPedido">
+    <dialog class="modalPedido">
+        <div class="ModalConPedido">
+            
+          
+        </div>
         
+    </dialog>
+    <section class="SecoesPedido">
+        <div class="produtoPedido">
+            <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
+            <ul class="nav_links">
+                <li><a href=""><h1>X-Tudo</h1></a></li>
+                <li><a href=""><h1>20R$</h1></a></li>
+            </ul>
+            <div class="operacoes"><a href=""><img src="{% static 'imagens/Subtract.png' %}" alt=""></a><h1>Q</h1><a href=""><img src="{% static 'imagens/Plus Math.png' %}" alt=""></a></div>
+        </div>
     </section>
+
+
     <footer class="Nav-footer">
-        <button class="BntFooter"><a href="">RETIRAR NA LOJA</a></button>
-        <button class="BntFooter"><a href="">LOCAL</a></button>
-        <button class="BntFooter"><a href="">DELIVERY</a></button>
+        <button class="BntFooter" onclick="Modalpedido()"><a href="">RETIRAR NA LOJA</a></button>
+        <button class="BntFooter" onclick="Modalpedido()"><a href="">LOCAL</a></button>
+        <button id="BntFooter"><a href="">DELIVERY</a></button>
     </footer>
+    
 </body>
+<script src="{%static 'js/main.js'%}"></script>
 </html>
