@@ -8,6 +8,7 @@
     <title>Pedido</title>
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
     <link rel="stylesheet" href="{%static 'css/Style.css'%}">
+    
 </head>
 <body>
     <header class="Nav-Pedido">
@@ -21,8 +22,31 @@
     </header>
     <dialog class="modalPedido">
         <div class="ModalConPedido">
-            
-          
+            <div class="InfoPedido">
+                <h1>Dados do Pedido</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. .</p>
+            </div>
+
+            <div class="InfoPedido">
+                <h1>Seus dados</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            </div>
+
+            <div class="InfoPedido">
+                <form class="fomulario">
+                    <h1>Formas de pagamento</h1>
+                    <select class="FormasPagamento" name="FormasPagamento" id="">
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="pix">Pix</option>
+                        <option value="cartão">Cartão</option>
+                        
+                    </select>
+                </form>
+               
+            </div>
+
+            <div class="InfoPedidoBtn"> <input class="BntProduto" type="submit"></div>
+           
         </div>
         
     </dialog>
@@ -41,9 +65,17 @@
     <footer class="Nav-footer">
         <button class="BntFooter" onclick="Modalpedido()"><a href="">RETIRAR NA LOJA</a></button>
         <button class="BntFooter" onclick="Modalpedido()"><a href="">LOCAL</a></button>
-        <button id="BntFooter"><a href="">DELIVERY</a></button>
+        <button id="BntFooter" onclick="Modalpedido()"><a href="">DELIVERY</a></button>
     </footer>
     
 </body>
-<script src="{%static 'js/main.js'%}"></script>
+<script >
+    const ModalPedido = document.querySelector('.modalPedido')
+    const BtnModalPedido = document.querySelector('.BntFooter')
+    function Modalpedido (){
+    ModalPedido.showModal()
+
+    }
+    BtnModalPedido.addEventListener('click',Modalpedido)
+</script>
 </html>
