@@ -29,7 +29,7 @@ body{
     padding: 0px 20px;
 }
 
-li,a{
+li,a,h1,p{
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
@@ -53,14 +53,7 @@ li,a{
 
 }
 
-.Secoes{
-    display: grid;
-    column-gap: 50px;
-    row-gap: 100px;
-    grid-template-columns: auto auto;
-    background-color: #1e1b1bb3;
-    padding: 50px 150px 50px 150px;
-}
+
 
 .Img-Produto{
     padding: 8px;
@@ -75,6 +68,71 @@ li,a{
     height:100px;
 }
 
+.modal{
+    display: none;
+    background-color: red;
+    height: 0vh;
+    width: 0vw;
+}
+
+.ModalContent{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    position: absolute;
+    height: 75vh;
+    width: 40vw;
+    left: 30%;
+    border-radius:16px ;
+    background-color: #292727;
+}
+
+.modalBtn{
+    background-color: #1e1b1b;
+    width: 24px;
+
+}
+.ServMom{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 500px;
+}
+
+.servicos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    background-color: #1F1E1E;
+    height: 50px;
+    width:350px;
+    
+
+}
+
+.servicosInfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    height: 50px;
+    width:500px;
+}
+
+.servicosShare{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    height: 50px;
+    width:350px;
+}
 
 .pagination-container {
     display: none;
@@ -115,9 +173,11 @@ li,a{
 
 .produtos_container{
     display: grid;
-    grid-template-columns: auto auto;
-    gap: 60px;
-    padding: 10px;
+    grid-template-columns: auto auto ;
+    justify-content: center;
+    background-color: #1e1b1bb0;
+    gap: 110px;
+    padding: 20px;
 }
 
 .logoVoltar{
@@ -141,14 +201,176 @@ li,a{
     justify-content: space-around;
 }
 
-.BntFooter{
+ .BntFooter{
     background-color:rgb(242, 255, 0);
     height: 64px;
     width: 256px;
     border-radius: 8px;
 }
 
+#BntFooter{
+    background-color:rgb(242, 255, 0);
+    height: 64px;
+    width: 256px;
+    border-radius: 8px;
+}
+.ModalContent{
+    padding: 16px;
+}
+
 .SecoesPedido{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    padding: 16px;
+    gap: 20px;
     height: 80vh;
     width: 100vw;
+}
+
+.produtoPedido{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1b1b;
+    height: 20vh;
+    width: 70vw;
+    border-radius: 16px;
+}
+
+.operacoes{
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    width:200px;
+    height: 100px;
+}
+
+.Nav-Footer{
+    border: none;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #6D6B6B;
+    height: 10vh;
+    width:100%;
+}
+
+.BntProduto{
+    background-color:rgb(31, 215, 7);
+    height: 50px;
+    width: 256px;
+    border-radius: 8px;
+}
+
+
+
+
+.modalPedido{
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    grid-template-columns: auto;
+    justify-content: center;
+    position: absolute;
+    height: 500px;
+    width: 700px;
+    top: 20%;
+    left: 25%;
+    background-color: #FFFFFF;
+}
+
+
+.FormasPagamento{
+    height: 50px;
+    width: 40vw;
+    background-color: #787878;
+}
+
+
+
+
+.InfoPedidoBtn{
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 6px;
+    margin: 16px;
+    height: 100px;
+    width: 617px;
+}
+
+.InfoPedido{
+ 
+    padding: 8px;
+    border-radius: 6px;
+    margin: 16px;
+    height: 100px;
+    width: 617px;
+    background-color: #787878;
+}
+
+
+.login-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 70vh;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-logo{
+    position: relative;
+    margin-left: -41.5%;
+}
+
+.login-form-1{
+    border-radius: 16px;
+    width: 1000px;
+    height: 500px;
+    padding: 5%;
+    background:#282726;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h1{
+    text-align: center;
+    margin-bottom:12%;
+    color:#fff;
+}
+
+.btnSubmit{
+    font-weight: 600;
+    width: 50%;
+    color: #282726;
+    background-color: #fff30c;
+    border: none;
+    border-radius: 1.5rem;
+    padding:2%;
+    margin: 2%;
+}
+.btnForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.btnForgetPwd:hover{
+    text-decoration:none;
+    color:#fff;
+}
+
+
+.Logologin{
+    width: 300px;
+    border-radius: 16px;
+}
+
+.group{
+
+    display: flex;
+    justify-content: space-between;
+
 }

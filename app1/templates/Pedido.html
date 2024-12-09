@@ -8,24 +8,74 @@
     <title>Pedido</title>
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
     <link rel="stylesheet" href="{%static 'css/Style.css'%}">
+    
 </head>
 <body>
     <header class="Nav-Pedido">
         <a href="#"><img class="logoVoltar" src="{% static 'imagens/botao-voltar.png' %}" alt=""></a>
         <ul class="Nav-links">
-            <li><h1>PRODUTOS</h1></li>
+            <li><h1>PEDIDOS</h1></li>
         </ul>
         <ul class="Nav-links">
             <li>VALOR TOTAL:</li> 
         </ul>
     </header>
-    <section class="SecoesPedido">
+    <dialog class="modalPedido">
+        <div class="ModalConPedido">
+            <div class="InfoPedido">
+                <h1>Dados do Pedido</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. .</p>
+            </div>
 
+            <div class="InfoPedido">
+                <h1>Seus dados</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+            </div>
+
+            <div class="InfoPedido">
+                <form class="fomulario">
+                    <h1>Formas de pagamento</h1>
+                    <select class="FormasPagamento" name="FormasPagamento" id="">
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="pix">Pix</option>
+                        <option value="cartão">Cartão</option>
+                        
+                    </select>
+                </form>
+               
+            </div>
+
+            <div class="InfoPedidoBtn"> <input class="BntProduto" type="submit"></div>
+           
+        </div>
+        
+    </dialog>
+    <section class="SecoesPedido">
+        <div class="produtoPedido">
+            <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
+            <ul class="nav_links">
+                <li><a href=""><h1>X-Tudo</h1></a></li>
+                <li><a href=""><h1>20R$</h1></a></li>
+            </ul>
+            <div class="operacoes"><a href=""><img src="{% static 'imagens/Subtract.png' %}" alt=""></a><h1>Q</h1><a href=""><img src="{% static 'imagens/Plus Math.png' %}" alt=""></a></div>
+        </div>
     </section>
+
+
     <footer class="Nav-footer">
-        <button class="BntFooter"><a href="">RETIRAR NA LOJA</a></button>
-        <button class="BntFooter"><a href="">LOCAL</a></button>
-        <button class="BntFooter"><a href="">DELIVERY</a></button>
+        <button class="BntFooter" onclick="Modalpedido()"><a href="">RETIRAR NA LOJA</a></button>
+        <button class="BntFooter" onclick="Modalpedido()"><a href="">LOCAL</a></button>
+        <button id="BntFooter" onclick="Modalpedido()"><a href="">DELIVERY</a></button>
     </footer>
+    
 </body>
+<script >
+    const ModalPedido = document.querySelector('.modalPedido')
+    const BtnModalPedido = document.querySelector('.BntFooter')
+    function Modalpedido (){
+    ModalPedido.showModal()
+
+    }
+    BtnModalPedido.addEventListener('click',Modalpedido)
+</script>
 </html>
