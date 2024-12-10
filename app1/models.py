@@ -1,5 +1,12 @@
 from django.db import models
 
+class Cliente(models.Model):     
+    nome = models.CharField(max_length=100)
+    telefone = models.CharField(max_length=15)
+    endereco = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nome
 
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
@@ -11,9 +18,7 @@ class Produto(models.Model):
 
 
 class Pedido(models.Model):
-    nome_cliente = models.CharField(max_length=100)
-    telefone_cliente = models.CharField(max_length=15)
-    endereco_cliente = models.CharField(max_length=255)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
     data_pedido = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=50,
@@ -32,13 +37,19 @@ class Pedido(models.Model):
 
 
 class ItemPedido(models.Model):
-    pedido = models.ForeignKey("Pedido", on_delete=models.CASCADE)  # Relaciona com Pedido
-    produto = models.ForeignKey("Produto", on_delete=models.CASCADE)  # Relaciona com Produto
-    quantidade = models.PositiveIntegerField(default=1)  # Quantidade do produto no pedido
-    observacao = models.TextField(blank=True, null=True)  # Observações opcionais para o item
+    pedido = models.ForeignKey("Pedido", on_delete=models.CASCADE, null=True, blank=True)  # Itens no pedido ou no carrinho
+    produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    observacao = models.TextField(blank=True, null=True)
+    session_id = models.CharField(max_length=40, blank=True, null=True)  # Identificador temporário
+
+    @property
+    def total(self):
+        return self.quantidade * self.preco_unitario
 
     def __str__(self):
-        return f"{self.quantidade}x {self.produto.nome} (Pedido {self.pedido.id})"
+        return f"{self.quantidade}x {self.produto.nome} (Pedido {self.pedido.id if self.pedido else 'Carrinho'})"
 
 
 # Modelo para Entrega
@@ -56,11 +67,12 @@ class Entrega(models.Model):
 
 # Modelo para Avaliação
 class Avaliacao(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)  # Cada avaliação está ligada a um pedido
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)  # Cada avaliação é para um produto específico
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)  # Relaciona diretamente o cliente
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     nota = models.PositiveIntegerField(choices=[(1, '1 estrela'), (2, '2 estrelas'), (3, '3 estrelas'),
                                                 (4, '4 estrelas'), (5, '5 estrelas')])
-    comentario = models.TextField(blank=True, null=True)  # Comentário opcional
+    comentario = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Avaliação de {self.cliente.nome} para {self.produto.nome} - Nota: {self.nota}"

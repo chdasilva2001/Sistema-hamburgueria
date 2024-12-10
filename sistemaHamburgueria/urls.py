@@ -20,6 +20,6 @@ from app1.views import Inicio,Pedido
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Pedido',Pedido),
+    path('pedido',Pedido),
     path('', Inicio, name='inicio') 
 ]
