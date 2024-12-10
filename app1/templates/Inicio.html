@@ -10,7 +10,7 @@
                     <li><a href="">{{ produto.nome }}</a></li>
                     <li><a href="">{{ produto.preco }}</a></li>
                 </ul>
-                <a href=""><button class="BntAdd">ADD</button></a>
+                <a><button class="BntAdd" id="BtnProduto" onclick="Produto()">ADD</button></a>
             </div>
         {% endfor %}
     </div>
@@ -37,3 +37,5 @@
     </div>
 
 {% endblock %}
+
+<script src="{%static 'js/main.js'%}"></script>
