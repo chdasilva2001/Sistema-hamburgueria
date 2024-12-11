@@ -15,33 +15,12 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <img class="Logologin" src="{% static 'imagens/Logoigara01.webp' %}"  alt="">
-        <div class="col-md-6 login-form-1">
-            
-            <h1>Seja bem vindo!</h1>
-
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu Nome*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu telefone*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu endereço*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Sua senha *" value="" />
-            </div>
-            <div class="group">
-                <input type="submit" class="btnSubmit" value="Criar conta" />
-                  
-            </div>
-            
-
-        </div>
-
-    </div>
+    <h2>Cadastro de Usuário</h2>
+    <form class="col-md-6 login-form-1" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renderiza o formulário -->
+        <button class="btnSubmit" type="submit">Cadastrar</button>
+    </form>
 </body>
 
 

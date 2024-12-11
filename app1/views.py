@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from .models import Produto, Pedido, ItemPedido, Cliente
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from .forms import CustomUserCreationForm
 
 
 
@@ -17,10 +20,22 @@ def Inicio(request):
 def Login(request):
     return render(request, "Login.html")
 
-def Cadastro(request):
-    return render(request, "Cadastro.html")
 
-def pedido(request):
+    
+    
+
+def Cadastro(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Salva o novo usuário no banco de dados
+            messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
+            return redirect('Login')  # Redireciona para a página de login
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'Cadastro.html', {'form': form})
+        
+def Pedido(request):
     return render(request, "Pedido.html")
 
 
