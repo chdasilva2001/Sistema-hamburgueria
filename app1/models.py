@@ -4,6 +4,7 @@ class Cliente(models.Model):
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=255)
+    
 
     def __str__(self):
         return self.nome
@@ -18,7 +19,7 @@ class Produto(models.Model):
 
 
 class Pedido(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
+    cliente = Cliente
     data_pedido = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=50,
@@ -32,7 +33,7 @@ class Pedido(models.Model):
     )
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.nome_cliente}"
+        return f"Pedido {self.id} - {self.cliente}"
     
 
 

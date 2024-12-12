@@ -3,8 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from .models import Produto, Pedido, ItemPedido, Cliente
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm
+from .forms import CreateUser
 
 
 
@@ -18,21 +17,23 @@ def Inicio(request):
     return render(request, 'Inicio.html', {'page_obj': page_obj} )
 
 def Login(request):
-    return render(request, "Login.html")
-
+    if request.method == 'POST':
+        return redirect('inicio')
+    else:
+        return render(request,'Login.html')
 
     
-    
+        
 
 def Cadastro(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CreateUser(request.POST)
         if form.is_valid():
             form.save()  # Salva o novo usuário no banco de dados
             messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
             return redirect('Login')  # Redireciona para a página de login
     else:
-        form = CustomUserCreationForm()
+        form = CreateUser()
     return render(request, 'Cadastro.html', {'form': form})
         
 def Pedido(request):
