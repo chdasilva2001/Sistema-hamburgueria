@@ -17,7 +17,7 @@ urlpatterns = [
     path('carrinho/observacao/<int:item_id>/', Adicionar_observacao, name='adicionar_observacao'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
-    path('cadastro/', Cadastrar_usuario, name='cadastro'),
+    path('Cadastro/', Cadastrar_usuario, name='cadastro'),
     
     
 ]

@@ -27,7 +27,7 @@
             <form action="{% url 'adicionar_ao_carrinho' produto.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="produto_id" value="{{ produto.id }}">
-                <button type="submit" class="BntAdd">Adicionar ao Carrinho</button>
+                <button type="submit" class="BntAdd">Add</button>
             </form>
         </div>
     {% endfor %}
