@@ -99,7 +99,7 @@ def finalizar_pedido(request):
 
     pedido = Pedido.objects.create(usuario=request.user, status="Pendente", total = 0)
 
-
+ 
     for item in itens_carrinho: 
         item.pedido = pedido
         item.save()
@@ -110,3 +110,22 @@ def finalizar_pedido(request):
 
     messages.success(request, "Pedido finalizado com sucesso!")
     return redirect("inicio")
+
+
+
+
+@login_required
+def Adicionar_observacao(request, item_id):
+    if request.method == "POST":
+        observacao = request.POST.get("observacao", "")
+        item = get_object_or_404(ItemPedido, id=item_id)
+
+        # Atualiza a observação
+        item.observacao = observacao
+        item.save()
+
+        messages.success(request, "Observação adicionada com sucesso!")
+        return redirect("exibir_carrinho")  # Redireciona para a página do carrinho
+    else:
+        messages.error(request, "Método inválido para adicionar observação.")
+        return redirect("exibir_carrinho")

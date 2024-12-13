@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block Conteudo %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <div class="produtos_container">
     {% for produto in page_obj %}
         <div class="produto">

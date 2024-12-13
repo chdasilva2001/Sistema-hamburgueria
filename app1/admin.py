@@ -24,7 +24,7 @@ admin.site.register(Produto, ProdutoAdmin)
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
     extra = 1  # Número de linhas extras para adicionar itens ao pedido
-    readonly_fields = ('produto', 'quantidade', 'preco_unitario', 'total')  # Campos que serão somente leitura
+    readonly_fields = ('produto', 'quantidade', 'preco_unitario', 'total',)  # Campos que serão somente leitura
     can_delete = True  # Permite excluir os itens
     show_change_link = True  # Exibe um link para editar os itens
 

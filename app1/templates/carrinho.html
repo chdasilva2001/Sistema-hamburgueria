@@ -5,6 +5,13 @@
     <title>Carrinho</title>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
     <h1>Seu Carrinho</h1>
 
     <table>
@@ -28,13 +35,21 @@
                 </td>
                 <td>R$ {{ item.preco_unitario }}</td>
                 <td>R$ {{ item.total }}</td>
+                <td>   
+                    <form action="{% url 'adicionar_observacao' item.id %}" method="post">
+                        {% csrf_token %}
+                        <textarea name="observacao" rows="4" cols="50" placeholder="Adicione suas observações aqui...">{{ item.observacao }}</textarea>
+                        <button type="submit">Salvar Observação</button>
+                    </form>
                 <td><a href="{% url 'remover_do_carrinho' item.id %}">Remover</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <h2>Total: R$ {{ total_carrinho }}</h2>
+
+
+    <h2>Total: R$ {{ total }}</h2>
 
     <a href="{% url 'finalizar_pedido' %}">Finalizar Pedido</a>
     <a href="{% url 'inicio' %}">Continuar Comprando</a>
