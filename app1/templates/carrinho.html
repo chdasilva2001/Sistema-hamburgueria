@@ -1,57 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="message {{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-    <h1>Seu Carrinho</h1>
+<body class="bg-dark text-white ">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Seu Carrinho</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Preço Unitário</th>
-                <th>Total</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in itens %}
-            <tr>
-                <td>{{ item.produto.nome }}</td>
-                <td>
-                    {{ item.quantidade }}
-                    <a href="{% url 'adicionar_ao_carrinho' item.produto.id %}">+</a>
-                    <a href="{% url 'remover_item_do_carrinho' item.id %}">-</a>
-                </td>
-                <td>R$ {{ item.preco_unitario }}</td>
-                <td>R$ {{ item.total }}</td>
-                <td>   
-                    <form action="{% url 'adicionar_observacao' item.id %}" method="post">
-                        {% csrf_token %}
-                        <textarea name="observacao" rows="4" cols="50" placeholder="Adicione suas observações aqui...">{{ item.observacao }}</textarea>
-                        <button type="submit">Salvar Observação</button>
-                    </form>
-                <td><a href="{% url 'remover_do_carrinho' item.id %}">Remover</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% if messages %}
+        <div class="alert alert-info">
+            <ul class="list-unstyled">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                    <th>Observações</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                <tr>
+                    <td class="text-white">{{ item.produto.nome }}</td>
+                    <td class="text-white">
+                        {{ item.quantidade }}
+                        <a href="{% url 'adicionar_ao_carrinho' item.produto.id %}" class="btn btn-sm btn-primary ml-2">+</a>
+                        <a href="{% url 'remover_item_do_carrinho' item.id %}" class="btn btn-sm btn-warning ml-2">-</a>
+                    </td>
+                    <td class="text-white">R$ {{ item.preco_unitario }}</td>
+                    <td class="text-white">R$ {{ item.total }}</td>
+                    <td class="text-white">
+                        <form action="{% url 'adicionar_observacao' item.id %}" method="post">
+                            {% csrf_token %}
+                            <textarea name="observacao" rows="3" class="form-control" placeholder="Adicione suas observações aqui...">{{ item.observacao }}</textarea>
+                            <button type="submit" class="btn btn-sm btn-success mt-2">Salvar Observação</button>
+                        </form>
+                    </td>
+                    <td><a href="{% url 'remover_do_carrinho' item.id %}" class="btn btn-sm btn-danger">Remover</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
+        <h2 class="text-right">Total: R$ {{ total }}</h2>
 
-    <h2>Total: R$ {{ total }}</h2>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'finalizar_pedido' %}" class="btn btn-success">Finalizar Pedido</a>
+            <a href="{% url 'inicio' %}" class="btn btn-secondary">Continuar Comprando</a>
+        </div>
+    </div>
 
-    <a href="{% url 'finalizar_pedido' %}">Finalizar Pedido</a>
-    <a href="{% url 'inicio' %}">Continuar Comprando</a>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

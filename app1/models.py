@@ -1,15 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Cliente(models.Model):     
-    nome = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=15)
-    endereco = models.CharField(max_length=255)
     
-
-    def __str__(self):
-        return self.nome
-
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
@@ -71,12 +63,9 @@ class Entrega(models.Model):
 
 # Modelo para Avaliação
 class Avaliacao(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)  # Relaciona diretamente o cliente
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     nota = models.PositiveIntegerField(choices=[(1, '1 estrela'), (2, '2 estrelas'), (3, '3 estrelas'),
                                                 (4, '4 estrelas'), (5, '5 estrelas')])
     comentario = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return f"Avaliação de {self.cliente.nome} para {self.produto.nome} - Nota: {self.nota}"

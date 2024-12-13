@@ -1,18 +1,9 @@
 from django.contrib import admin
-from .models import Cliente, Produto, Pedido, ItemPedido, Entrega, Avaliacao
+from .models import Produto, Pedido, ItemPedido, Entrega, Avaliacao
 
 
-# Registro cliente 
 
-class ClienteAdmin(admin.ModelAdmin):
-    # Campos a serem exibidos na lista de clientes no admin
-    list_display = ('nome', 'telefone', 'endereco')  # Exibe esses campos na lista de clientes
-    list_filter = ('nome',)  # Permite filtrar os clientes pelo nome (pode adicionar outros campos)
-    search_fields = ('nome', 'email')  # Permite pesquisar por nome e email
-    ordering = ('nome',)  # Ordena os clientes por nome por padrão
-    list_per_page = 20  # Número de clientes exibidos por página na lista de clientes
 
-admin.site.register(Cliente, ClienteAdmin)
 
 # Registro de Produto
 class ProdutoAdmin(admin.ModelAdmin):

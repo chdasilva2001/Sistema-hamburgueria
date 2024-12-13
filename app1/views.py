@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 from django.core.paginator import Paginator
-from .models import Produto, Pedido, ItemPedido, Cliente
+from .models import Produto, Pedido, ItemPedido
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView, LogoutView

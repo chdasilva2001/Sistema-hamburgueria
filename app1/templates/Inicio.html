@@ -10,24 +10,42 @@
         {% endfor %}
     </ul>
 {% endif %}
+
+<!-- Botões de login, logout e carrinho -->
+<div class="d-flex justify-content-between mb-4">
+    {% if user.is_authenticated %}
+        <!-- Botão de Logout -->
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-lg px-5 py-3">Sair</button>
+        </form>
+    {% else %}
+        <!-- Botão de Login -->
+        <a href="{% url 'Login' %}" class="btn btn-success btn-lg px-5 py-3">Login</a>
+    {% endif %}
+
+    <!-- Botão de Carrinho (movido para a direita) -->
+    <a href="{% url 'exibir_carrinho' %}" class="btn btn-warning btn-lg px-5 py-3 ms-auto">Carrinho</a>
+</div>
+
 <div class="produtos_container">
     {% for produto in page_obj %}
         <div class="produto">
             <!-- Exibe a imagem do produto -->
             <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
-            
+
             <ul class="nav_links">
                 <!-- Exibe o nome do produto -->
                 <li><a href="#">{{ produto.nome }}</a></li>
                 <!-- Exibe o preço do produto -->
                 <li><a href="#">R$ {{ produto.preco }}</a></li>
             </ul>
-            
+
             <!-- Formulário para adicionar produto ao carrinho -->
             <form action="{% url 'adicionar_ao_carrinho' produto.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="produto_id" value="{{ produto.id }}">
-                <button type="submit" class="BntAdd">Add</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
     {% endfor %}
@@ -45,7 +63,7 @@
             <span class="current">
                 Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
             </span>
-    
+
             {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">próxima</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
