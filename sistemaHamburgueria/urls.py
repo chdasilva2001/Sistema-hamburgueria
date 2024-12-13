@@ -14,9 +14,9 @@ urlpatterns = [
     path("carrinho/remover/<int:item_id>/", remover_do_carrinho, name="remover_do_carrinho"), 
     path("carrinho/removeritem/<int:item_id>/", remover_item_do_carrinho, name="remover_item_do_carrinho"),  
     path("carrinho/finalizar/", finalizar_pedido, name="finalizar_pedido"), 
-    path('login/', CustomLoginView.as_view(), name='login'),
+    path('Login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
-    path('cadastro/', Cadastrar_usuario, name='cadastro'),
+    path('Cadastro/', Cadastrar_usuario, name='cadastro'),
     
     
 ]

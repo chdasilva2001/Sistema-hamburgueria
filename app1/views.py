@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from datetime import datetime
 from django.core.paginator import Paginator
 from .models import Produto, Pedido, ItemPedido, Cliente
 from django.contrib.auth.forms import UserCreationForm
@@ -11,12 +12,17 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 def Inicio(request):
     produtos = Produto.objects.all() 
-
     paginator = Paginator(produtos, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'Inicio.html', {'page_obj': page_obj} )
+    horaAtual = datetime.now().hour
+    if horaAtual > 17:
+        contexto = "ABERTO"
+    else:
+        contexto = "FECHADO"
+
+    return render(request, 'Inicio.html', {'page_obj': page_obj, 'hora':contexto} )
 
 def Cadastrar_usuario(request):
     if request.method == "POST":
