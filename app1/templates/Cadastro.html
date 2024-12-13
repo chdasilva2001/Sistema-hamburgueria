@@ -1,49 +1,18 @@
-{%load static%}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="{%static 'css/Style.css'%}">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <title>Cadastro</title>
 </head>
-
 <body>
-    <div class="login-container">
-        <img class="Logologin" src="{% static 'imagens/Logoigara01.webp' %}"  alt="">
-        <div class="col-md-6 login-form-1">
-            
-            <h1>Seja bem vindo!</h1>
+    <h1>Cadastro de Usuário</h1>
 
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu Nome*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu telefone*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu endereço*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Sua senha *" value="" />
-            </div>
-            <div class="group">
-                <input type="submit" class="btnSubmit" value="Criar conta" />
-                  
-            </div>
-            
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
 
-        </div>
-
-    </div>
+    <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
 </body>
-
-
-
 </html>

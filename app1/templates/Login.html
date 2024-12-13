@@ -1,46 +1,18 @@
-{%load static%}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="{%static 'css/Style.css'%}">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 </head>
-
 <body>
-    <div class="login-container">
-        <img class="Logologin" src="{% static 'imagens/Logoigara01.webp' %}"  alt="">
-        <div class="col-md-6 login-form-1">
-            
-            <h1>Bem vindo!</h1>
+    <h1>Login</h1>
 
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Seu telefone*" value="" />
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Sua senha *" value="" />
-            </div>
-            <div class="group">
-                <input type="submit" class="btnSubmit" value="Login" />
-                <input type="submit" class="btnSubmit" value="Cadastra-se" />
-                
-            </div>
-            <div class="form-group">
-                <a href="#" class="btnForgetPwd">Forget Password?</a>
-            </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
 
-        </div>
-
-    </div>
+    <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
 </body>
-
-
-
 </html>

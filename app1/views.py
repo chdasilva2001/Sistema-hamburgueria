@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Produto, Pedido, ItemPedido, Cliente
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 
@@ -14,70 +18,95 @@ def Inicio(request):
 
     return render(request, 'Inicio.html', {'page_obj': page_obj} )
 
-def Login(request):
-    return render(request, "Login.html")
+def Cadastrar_usuario(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('inicio')  # Redireciona após cadastro
+    else:
+        form = UserCreationForm()
+    return render(request, 'Cadastro.html', {'form': form})
 
-def Cadastro(request):
-    return render(request, "Cadastro.html")
 
-def pedido(request):
-    return render(request, "Pedido.html")
+# Login - Usando a view do Django
+class CustomLoginView(LoginView):
+    template_name = 'Login.html'
+
+# Logout - Usando a view do Django
+class CustomLogoutView(LogoutView):
+    next_page = '/'  # Redireciona para a página inicial após o logout
 
 
+@login_required
 def adicionar_ao_carrinho(request, produto_id): 
+    
     produto = get_object_or_404(Produto, id=produto_id)
 
-    session_id = request.session.session_key
-    if not session_id: 
-        request.session.create()
-        session_id = request.session.session_key
 
-    item, created = ItemPedido.objects.get_or_create(
-        session_id = session_id, 
-        produto = produto, 
-        pedido__isnull=True, 
-        defaults={
-            'quantidade': 1, 
-            'preco_unitario': produto.preco,
-        }
-    )
+    item = ItemPedido.objects.filter(usuario = request.user, produto=produto, pedido__isnull=True).first()
 
-    if not created: 
+    if item: 
         item.quantidade += 1 
         item.save()
+        messages.success(request, "Produto adicionado ao carrinho")
+    else: 
+        ItemPedido.objects.create(usuario = request.user, produto = produto, quantidade = 1, preco_unitario = produto.preco)
+        messages.success(request, "Produto adicionado ao carrinho")
 
-    return JsonResponse({'mensagem': 'Produto adicionado ao carrinho!', 'quantidade': item.quantidade})
-
-
+    return redirect("exibir_carrinho") 
+    
+@login_required
 def exibir_carrinho(request):
-    session_id = request.session.session_key
-    if not session_id:
-        return render(request, 'carrinho.html', {'itens': []})
-
-    itens = ItemPedido.objects.filter(session_id=session_id, pedido__isnull=True)
+    itens = ItemPedido.objects.filter(usuario = request.user, pedido__isnull=True)
     total = sum(item.total for item in itens)
 
     return render(request, 'carrinho.html', {'itens': itens, 'total': total})
 
 
+@login_required
+def remover_do_carrinho(request, item_id): 
+    item = get_object_or_404(ItemPedido, id=item_id, usuario=request.user, pedido__isnull=True)
+    item.delete()
 
+    messages.success(request, "Produto removido com sucesso")
+
+    return redirect("exibir_carrinho")
+
+@login_required
+def remover_item_do_carrinho(request, item_id): 
+    item = get_object_or_404(ItemPedido, id=item_id, usuario=request.user, pedido__isnull=True)
+    
+
+    if item: 
+        item.quantidade -= 1 
+        item.save()
+
+    messages.success(request, "Produto removido com sucesso")
+
+    return redirect("exibir_carrinho")
+
+
+@login_required
 def finalizar_pedido(request): 
-    if request.method == 'POST': 
-        cliente = get_object_or_404(Cliente, id= request.POST.get("cliente_id"))
+    itens_carrinho = ItemPedido.objects.filter(usuario=request.user, pedido__isnull=True)
+    
+    
+    if not itens_carrinho.exists(): 
+        messages.error(request, "seu carrinho está vazio. ")
+        return redirect("exibir_carrinho")
 
-        pedido = Pedido.objects.create(cliente=cliente)
-
-        session_id = request.session.session_key
-        itens = ItemPedido.objects.filter(session_id=session_id, pedido__isnull=True)
-
-        for item in itens: 
-            item.pedido = pedido 
-            item.session_id = none 
-            item.save()
+    pedido = Pedido.objects.create(usuario=request.user, status="Pendente", total = 0)
 
 
-            itens.delete()
+    for item in itens_carrinho: 
+        item.pedido = pedido
+        item.save()
+
+    pedido.total = sum(item.total for item in itens_carrinho)
+    pedido.save()
 
 
-
-            return redirect('whatsapp')
+    messages.success(request, "Pedido finalizado com sucesso!")
+    return redirect("inicio")

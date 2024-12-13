@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Pedido</title>
+</head>
+<body>
+    <h1>Finalizar Pedido</h1>
+
+    <h2>Resumo do Pedido</h2>
+    <ul>
+        {% for item in itens_carrinho %}
+        <li>{{ item.quantidade }}x {{ item.produto.nome }} - R$ {{ item.total }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Total: R$ {{ total_carrinho }}</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="observacoes">Observações:</label><br>
+        <textarea name="observacoes" id="observacoes" rows="4"></textarea><br><br>
+        <button type="submit">Confirmar Pedido</button>
+    </form>
+
+    <a href="{% url 'exibir_carrinho' %}">Voltar ao Carrinho</a>
+</body>
+</html>

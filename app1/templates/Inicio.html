@@ -1,41 +1,51 @@
 {% extends 'Base.html' %}
 {% load static %}
+
 {% block Conteudo %}
-    
-    <div class="produtos_container">
-        {% for produto in page_obj %}
-            <div class="produto">
-                <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
-                <ul class="nav_links">
-                    <li><a href="">{{ produto.nome }}</a></li>
-                    <li><a href="">{{ produto.preco }}</a></li>
-                </ul>
-                <a><button class="BntAdd" id="BtnProduto" onclick="Produto()">ADD</button></a>
-            </div>
-        {% endfor %}
-    </div>
-
-    <!-- Paginação abaixo -->
-    <div class="pagination-container">
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; primeira</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
-                {% endif %}
-
-                <span class="current">
-                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-                </span>
-        
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">próxima</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
-                {% endif %}
-            </span>
+<div class="produtos_container">
+    {% for produto in page_obj %}
+        <div class="produto">
+            <!-- Exibe a imagem do produto -->
+            <img class="Img-Produto" src="{% static 'imagens/x-bacon.jpg' %}" alt="{{ produto.nome }}">
+            
+            <ul class="nav_links">
+                <!-- Exibe o nome do produto -->
+                <li><a href="#">{{ produto.nome }}</a></li>
+                <!-- Exibe o preço do produto -->
+                <li><a href="#">R$ {{ produto.preco }}</a></li>
+            </ul>
+            
+            <!-- Formulário para adicionar produto ao carrinho -->
+            <form action="{% url 'adicionar_ao_carrinho' produto.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                <button type="submit" class="BntAdd">Adicionar ao Carrinho</button>
+            </form>
         </div>
+    {% endfor %}
+</div>
+
+<!-- Paginação -->
+<div class="pagination-container">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+            {% endif %}
+        </span>
     </div>
+</div>
 
 {% endblock %}
 
-<script src="{%static 'js/main.js'%}"></script>
+<script src="{% static 'js/main.js' %}"></script>
