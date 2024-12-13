@@ -374,3 +374,17 @@ li,a,h1,p{
     justify-content: space-between;
 
 }
+
+.status{
+    display: flex;
+    justify-content: space-around;
+    padding: 8px;
+    top: 5%;
+    left: 90%;
+    border-radius: 8px;
+    color: #1e1b1b;
+    position: absolute;
+    background-color: #FFF9F9;
+    height:40px;
+    width:150px;
+}

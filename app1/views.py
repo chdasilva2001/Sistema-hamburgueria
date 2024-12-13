@@ -4,17 +4,23 @@ from django.core.paginator import Paginator
 from .models import Produto, Pedido, ItemPedido, Cliente
 from django.contrib import messages
 from .forms import CreateUser
+from datetime import datetime
 
 
 
 def Inicio(request):
+    horaAtual = datetime.now().time().hour
     produtos = Produto.objects.all() 
-
     paginator = Paginator(produtos, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
+    if horaAtual >= 17  :
+        contexto = "ABERTO"
+    else:
+        contexto = "FECHADO"
 
-    return render(request, 'Inicio.html', {'page_obj': page_obj} )
+    return render(request, 'Inicio.html', {'page_obj': page_obj, 'hora':contexto} )
 
 def Login(request):
     if request.method == 'POST':
@@ -97,3 +103,5 @@ def finalizar_pedido(request):
 
 
             return redirect('whatsapp')
+
+
