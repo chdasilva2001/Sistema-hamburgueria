@@ -21,17 +21,26 @@ class ProdutoAdmin(admin.ModelAdmin):
 
 admin.site.register(Produto, ProdutoAdmin)
 
-# Registro de ItemPedido
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
-    extra = 1  # Número de linhas extras para adicionar novos itens diretamente no pedido
+    extra = 1  # Número de linhas extras para adicionar itens ao pedido
+    readonly_fields = ('produto', 'quantidade', 'preco_unitario', 'total')  # Campos que serão somente leitura
+    can_delete = True  # Permite excluir os itens
+    show_change_link = True  # Exibe um link para editar os itens
 
 # Registro de Pedido
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'status', 'data_pedido')  # Exibe essas colunas na listagem
-    list_filter = ('status', 'data_pedido')  # Filtros para status e data do pedido
-    search_fields = ('nome_cliente', 'telefone_cliente')  # Permite pesquisar pelo nome do cliente ou telefone
+    list_display = ('id', 'status', 'data_criacao', 'total')  # Exibe as colunas
+    list_filter = ('status', 'data_criacao')  # Filtros para status e data do pedido
+    search_fields = ('cliente__nome', 'cliente__telefone')  # Permite pesquisar pelo nome ou telefone do cliente
     inlines = [ItemPedidoInline]  # Exibe os itens do pedido diretamente na página de detalhes do pedido
+    ordering = ('-data_criacao',)  # Ordena os pedidos pela data, do mais recente para o mais antigo
+
+    # Método para calcular o total do pedido
+    def total_pedido(self, obj):
+        return sum(item.total for item in obj.itens.all())  # Soma o total de todos os itens do pedido
+    total_pedido.admin_order_field = 'id'  # Permite ordenar pela coluna total_pedido no admin
+    total_pedido.short_description = 'Total'  # Descrição da coluna
 
 admin.site.register(Pedido, PedidoAdmin)
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Cliente(models.Model):     
     nome = models.CharField(max_length=100)
@@ -16,41 +17,43 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
-
-
-class Pedido(models.Model):
-    cliente = Cliente
-    data_pedido = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(
-        max_length=50,
-        choices=[
-            ('Recebido', 'Recebido'),
-            ('Em preparo', 'Em preparo'),
-            ('Em entrega', 'Em entrega'),
-            ('Concluído', 'Concluído'),
-        ],
-        default='Recebido'
-    )
-
-    def __str__(self):
-        return f"Pedido {self.id} - {self.cliente}"
     
 
-
+class Pedido(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[("Pendente", "Pendente"), ("Concluído", "Concluído"), ("Cancelado", "Cancelado")],
+        default="Pendente"
+    )
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    
+    def __str__(self):
+        return f"Pedido {self.id} ({self.usuario.username}) - {self.status}"
+    
 class ItemPedido(models.Model):
-    pedido = models.ForeignKey("Pedido", on_delete=models.CASCADE, null=True, blank=True)  # Itens no pedido ou no carrinho
+    pedido = models.ForeignKey(
+        "Pedido", on_delete=models.CASCADE, null=True, blank=True, related_name="itens"
+    )  # Associado ao pedido, se finalizado
     produto = models.ForeignKey("Produto", on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Vinculado ao usuário
+    quantidade = models.PositiveIntegerField(default=1)  # Sempre positiva
     preco_unitario = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    observacao = models.TextField(blank=True, null=True)
-    session_id = models.CharField(max_length=40, blank=True, null=True)  # Identificador temporário
-
+    observacao = models.TextField(blank=True, null=True)  # Ex.: "Sem cebola"
+    
     @property
     def total(self):
-        return self.quantidade * self.preco_unitario
+        return self.quantidade * self.preco_unitario  # Calcula o preço total
 
     def __str__(self):
-        return f"{self.quantidade}x {self.produto.nome} (Pedido {self.pedido.id if self.pedido else 'Carrinho'})"
+        if self.pedido:
+            return f"{self.quantidade}x {self.produto.nome} (Pedido {self.pedido.id})"
+        return f"{self.quantidade}x {self.produto.nome} (Carrinho do usuário {self.usuario.username})"
+
+    class Sem_duplicatas:
+        unique_together = ("usuario", "produto", "pedido") 
+
 
 
 # Modelo para Entrega
